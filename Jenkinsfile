@@ -32,8 +32,8 @@ pipeline {
         }
 
       }
-      when { 
-	  branch 'master'
+      when {
+        branch 'master'
       }
       steps {
         sh 'mvn package -DskipTests'
@@ -43,8 +43,8 @@ pipeline {
 
     stage('Docker Build and Publish') {
       agent any
-      when { 
-	  branch 'master'
+      when {
+        branch 'master'
       }
       steps {
         script {
@@ -60,6 +60,13 @@ pipeline {
           }
         }
 
+      }
+    }
+
+    stage('Deploy to dev') {
+      agent any
+      steps {
+        sh 'docker-compose up -d'
       }
     }
 
